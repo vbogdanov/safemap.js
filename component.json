@@ -1,0 +1,25 @@
+{
+    "name": "safemap",
+    "version": "0.1.0",
+    "author": "Phil Booth <pmbooth@gmail.com>",
+    "description": "A tiny, safe-for-all-property-names map/dictionary implementation in JavaScript.",
+    "contributors": [
+        { "name": "Phil Booth", "email": "pmbooth@gmail.com" }
+    ],
+    "main": "src/safemap.min.js",
+    "scripts": [
+        "src/safemap.min.js"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/philbooth/safemap.js"
+    },
+    "keywords": [
+        "map",
+        "dictionary",
+        "associative array",
+        "data structure"
+    ],
+    "license": "MIT"
+}
+
