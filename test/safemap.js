@@ -352,99 +352,99 @@ suite('require:', function () {
                         });
                     });
                 });
+            });
 
-                suite('safeSet:', function () {
-                    setup(function () {
+            suite('safeSet:', function () {
+                setup(function () {
+                    safemap.safeSet('baz', 'qux');
+                });
+
+                test('has returns true', function () {
+                    assert.isTrue(safemap.has('foo'));
+                });
+
+                test('has returns true', function () {
+                    assert.isTrue(safemap.has('baz'));
+                });
+
+                test('get returns value', function () {
+                    assert.strictEqual(safemap.get('foo'), 'bar');
+                });
+
+                test('get returns value', function () {
+                    assert.strictEqual(safemap.get('baz'), 'qux');
+                });
+
+                test('safeGet returns value', function () {
+                    assert.strictEqual(safemap.safeGet('baz'), 'qux');
+                });
+
+                test('safeSet throws', function () {
+                    assert.throws(function () {
                         safemap.safeSet('baz', 'qux');
                     });
+                });
 
-                    test('has returns true', function () {
-                        assert.isTrue(safemap.has('foo'));
+                test('safeRemove does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.safeRemove('baz');
+                    });
+                });
+
+                suite('clear:', function () {
+                    setup(function () {
+                        safemap.clear();
                     });
 
-                    test('has returns true', function () {
-                        assert.isTrue(safemap.has('baz'));
+                    test('has returns false', function () {
+                        assert.isFalse(safemap.has('foo'));
                     });
 
-                    test('get returns value', function () {
-                        assert.strictEqual(safemap.get('foo'), 'bar');
+                    test('has returns false', function () {
+                        assert.isFalse(safemap.has('baz'));
                     });
 
-                    test('get returns value', function () {
-                        assert.strictEqual(safemap.get('baz'), 'qux');
+                    test('get returns undefined', function () {
+                        assert.isUndefined(safemap.get('foo'));
                     });
 
-                    test('safeGet returns value', function () {
-                        assert.strictEqual(safemap.safeGet('baz'), 'qux');
+                    test('get returns undefined', function () {
+                        assert.isUndefined(safemap.get('baz'));
                     });
 
-                    test('safeSet throws', function () {
+                    test('safeGet throws', function () {
                         assert.throws(function () {
+                            safemap.safeGet('foo');
+                        });
+                    });
+
+                    test('safeGet throws', function () {
+                        assert.throws(function () {
+                            safemap.safeGet('baz');
+                        });
+                    });
+
+                    test('safeSet does not throw', function () {
+                        assert.doesNotThrow(function () {
+                            safemap.safeSet('foo', 'bar');
+                        });
+                    });
+
+                    test('safeSet does not throw', function () {
+                        assert.doesNotThrow(function () {
                             safemap.safeSet('baz', 'qux');
                         });
                     });
 
-                    test('safeRemove does not throw', function () {
-                        assert.doesNotThrow(function () {
-                            safemap.safeRemove('baz');
+                    test('safeRemove throws', function () {
+                        assert.throws(function () {
+                            safemap.safeRemove('foo');
                         });
                     });
 
-                    setup('clear:', function () {
-                        setup(function () {
-                            safemap.clear();
-                        });
-
-                        test('has returns false', function () {
-                            assert.isFalse(safemap.has('foo'));
-                        });
-
-                        test('has returns false', function () {
-                            assert.isFalse(safemap.has('baz'));
-                        });
-
-                        test('get returns undefined', function () {
-                            assert.isUndefined(safemap.get('foo'));
-                        });
-
-                        test('get returns undefined', function () {
-                            assert.isUndefined(safemap.get('baz'));
-                        });
-
-                        test('safeGet throws', function () {
-                            assert.throws(function () {
-                                safemap.safeGet('foo');
-                            });
-                        });
-
-                        test('safeGet throws', function () {
-                            assert.throws(function () {
-                                safemap.safeGet('baz');
-                            });
-                        });
-
-                        test('safeSet does not throw', function () {
-                            assert.doesNotThrow(function () {
-                                safemap.safeSet('foo', 'bar');
-                            });
-                        });
-
-                        test('safeSet does not throw', function () {
-                            assert.doesNotThrow(function () {
-                                safemap.safeSet('baz', 'qux');
-                            });
-                        });
-
-                        test('safeRemove throws', function () {
-                            assert.throws(function () {
-                                safemap.safeRemove('foo');
-                            });
-                        });
-
-                        test('safeRemove throws', function () {
-                            assert.throws(function () {
-                                safemap.safeRemove('qux');
-                            });
+                    test('safeRemove throws', function () {
+                        assert.throws(function () {
+                            safemap.safeRemove('qux');
                         });
                     });
                 });
