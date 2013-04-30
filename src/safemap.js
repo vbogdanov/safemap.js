@@ -11,7 +11,11 @@
     // map/dictionary implementation.
     function SafeMap () {
         // TODO: Support initial properties (cloned, not by-reference).
-        var map = {}, self = this;
+        var __proto__ = {
+            isSet: false
+        },
+
+        map = {};
 
         // Public method `get`.
         //
@@ -19,7 +23,11 @@
         // If `key` is not in the map, returns `defaultValue` (i.e. returns
         // `undefined` if no defaultValue argument is provided by the caller).
         this.get = function (key, defaultValue) {
-            if (self.has(key)) {
+            if (key === '__proto__') {
+                return __proto__.value;
+            }
+
+            if (this.has(key)) {
                 return map[key];
             }
 
@@ -31,13 +39,22 @@
         // Sets a value to be associated with `key`, over-writing any former
         // value that may have been set for `key`.
         this.set = function (key, value) {
-            map[key] = value;
+            if (key === '__proto__') {
+                __proto__.isSet = true;
+                __proto__.value = value;
+            } else {
+                map[key] = value;
+            }
         };
 
         // Public method `has`.
         //
         // Returns a boolean indicating whether `key` is in the map.
         this.has = function (key) {
+            if (key === '__proto__') {
+                return __proto__.isSet;
+            }
+
             return hasOwnProperty.call(map, key);
         };
 
@@ -45,7 +62,11 @@
         //
         // Removes `key` from the map.
         this.remove = function (key) {
-            delete map[key];
+            if (key === '__proto__') {
+                __proto__.isSet = false;
+            } else {
+                delete map[key];
+            }
         };
 
         // Public method `clear`.
@@ -60,7 +81,7 @@
         // Throwing version of `get`. No default value can be specified and,
         // if `key` is not in the map, an Error will be thrown.
         this.safeGet = function (key) {
-            if (self.has(key)) {
+            if (this.has(key)) {
                 return map[key];
             }
 
@@ -72,7 +93,7 @@
         // Throwing version of `set`. If `key` is already in the map, an
         // Error will be thrown.
         this.safeSet = function (key, value) {
-            if (self.has(key)) {
+            if (this.has(key)) {
                 throw new Error('Value exists for key `' + key + '`');
             }
 
@@ -84,7 +105,7 @@
         // Throwing version of `remove`. If `key` is not in the map, an
         // Error will be thrown.
         this.safeRemove = function (key) {
-            if (self.has(key)) {
+            if (this.has(key)) {
                 delete map[key];
                 return;
             }

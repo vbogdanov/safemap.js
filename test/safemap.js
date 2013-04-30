@@ -73,6 +73,10 @@ suite('require:', function () {
             assert.isUndefined(safemap.get('hasOwnProperty'));
         });
 
+        test('get __proto__ returns undefined', function () {
+            assert.isUndefined(safemap.get('__proto__'));
+        });
+
         test('set method exists', function () {
             assert.isFunction(safemap.set);
         });
@@ -107,6 +111,12 @@ suite('require:', function () {
             });
         });
 
+        test('set __proto__ does not throw', function () {
+            assert.doesNotThrow(function () {
+                safemap.set('__proto__', 'foo');
+            });
+        });
+
         test('has method exists', function () {
             assert.isFunction(safemap.has);
         });
@@ -131,6 +141,10 @@ suite('require:', function () {
             assert.isFalse(safemap.has('hasOwnProperty'));
         });
 
+        test('has __proto__ returns false', function () {
+            assert.isFalse(safemap.has('__proto__'));
+        });
+
         test('remove method exists', function () {
             assert.isFunction(safemap.remove);
         });
@@ -150,6 +164,12 @@ suite('require:', function () {
         test('remove hasOwnProperty does not throw', function () {
             assert.doesNotThrow(function () {
                 safemap.remove(hasOwnProperty);
+            });
+        });
+
+        test('remove __proto__ does not throw', function () {
+            assert.doesNotThrow(function () {
+                safemap.remove(__proto__);
             });
         });
 
@@ -179,6 +199,12 @@ suite('require:', function () {
             });
         });
 
+        test('safeGet __proto__ throws', function () {
+            assert.throws(function () {
+                safemap.safeGet('__proto__');
+            });
+        });
+
         test('safeSet method exists', function () {
             assert.isFunction(safemap.safeSet);
         });
@@ -195,6 +221,12 @@ suite('require:', function () {
             });
         });
 
+        test('safeSet __proto__ does not throw', function () {
+            assert.doesNotThrow(function () {
+                safemap.safeSet('__proto__', 'foo');
+            });
+        });
+
         test('safeRemove method exists', function () {
             assert.isFunction(safemap.safeRemove);
         });
@@ -208,6 +240,12 @@ suite('require:', function () {
         test('safeRemove hasOwnProperty throws', function () {
             assert.throws(function () {
                 safemap.safeRemove('hasOwnProperty');
+            });
+        });
+
+        test('safeRemove __proto__ throws', function () {
+            assert.throws(function () {
+                safemap.safeRemove('__proto__');
             });
         });
 
@@ -570,6 +608,92 @@ suite('require:', function () {
                 test('safeRemove throws', function () {
                     assert.throws(function () {
                         safemap.safeRemove('hasOwnProperty');
+                    });
+                });
+            });
+        });
+
+        suite('set __proto__:', function () {
+            setup(function () {
+                safemap.set('__proto__', 'foo');
+            });
+
+            test('has returns true', function () {
+                assert.isTrue(safemap.has('__proto__'));
+            });
+
+            test('get returns value', function () {
+                assert.strictEqual(safemap.get('__proto__'), 'foo');
+            });
+
+            test('safeGet does not throw', function () {
+                assert.doesNotThrow(function () {
+                    safemap.safeGet('__proto__');
+                });
+            });
+
+            test('safeGet returns value', function () {
+                assert.strictEqual(safemap.safeGet('__proto__'), 'foo');
+            });
+
+            test('safeSet throws', function () {
+                assert.throws(function () {
+                    safemap.safeSet('__proto__', 'foo');
+                });
+            });
+
+            test('safeRemove does not throw', function () {
+                assert.doesNotThrow(function () {
+                    safemap.safeRemove('__proto__');
+                });
+            });
+
+            suite('remove:', function () {
+                setup(function () {
+                    safemap.remove('__proto__');
+                });
+
+                test('get returns undefined', function () {
+                    assert.isUndefined(safemap.get('__proto__'));
+                });
+
+                test('set does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.set('__proto__', 'foo');
+                    });
+                });
+
+                test('has does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.has('__proto__');
+                    });
+                });
+
+                test('has returns false', function () {
+                    assert.isFalse(safemap.has('__proto__'));
+                });
+
+                test('remove does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.remove('__proto__');
+                    });
+                });
+
+                test('safeGet throws', function () {
+                    assert.throws(function () {
+                        safemap.safeGet('__proto__');
+                    });
+                });
+
+                test('safeSet does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.safeSet('__proto__', 'foo');
+                    });
+                });
+
+                test('safeRemove throws', function () {
+                    assert.throws(function () {
+                        safemap.safeRemove('__proto__');
                     });
                 });
             });
