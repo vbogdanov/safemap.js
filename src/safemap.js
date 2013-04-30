@@ -11,20 +11,24 @@
     // map/dictionary implementation.
     function SafeMap () {
         // TODO: Support initial properties (cloned, not by-reference).
-        var proto = {
+        var self = this instanceof SafeMap ? this : new SafeMap,
+
+        proto = {
             isSet: false
         },
 
         map = {};
 
-        this.has = has;
-        this.get = get;
-        this.set = set;
-        this.remove = remove;
-        this.clear = clear;
-        this.safeGet = safeGet;
-        this.safeSet = safeSet;
-        this.safeRemove = safeRemove;
+        self.has = has;
+        self.get = get;
+        self.set = set;
+        self.remove = remove;
+        self.clear = clear;
+        self.safeGet = safeGet;
+        self.safeSet = safeSet;
+        self.safeRemove = safeRemove;
+
+        return self;
 
         // Public method `has`.
         //

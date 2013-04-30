@@ -32,8 +32,18 @@ suite('require:', function () {
         });
     });
 
+    test('instantiation without new does not throw', function () {
+        assert.doesNotThrow(function () {
+            SafeMap();
+        });
+    });
+
     test('instantiation with new returns object', function () {
         assert.isObject(new SafeMap);
+    });
+
+    test('instantiation without new returns object', function () {
+        assert.isObject(SafeMap());
     });
 
     suite('new:', function () {
@@ -697,6 +707,50 @@ suite('require:', function () {
                     });
                 });
             });
+        });
+    });
+
+    suite('no new:', function () {
+        var safemap;
+
+        setup(function () {
+            safemap = SafeMap();
+        });
+
+        teardown(function () {
+            safemap = undefined;
+        });
+
+        test('get method exists', function () {
+            assert.isFunction(safemap.get);
+        });
+
+        test('set method exists', function () {
+            assert.isFunction(safemap.set);
+        });
+
+        test('has method exists', function () {
+            assert.isFunction(safemap.has);
+        });
+
+        test('remove method exists', function () {
+            assert.isFunction(safemap.remove);
+        });
+
+        test('clear method exists', function () {
+            assert.isFunction(safemap.clear);
+        });
+
+        test('safeGet method exists', function () {
+            assert.isFunction(safemap.safeGet);
+        });
+
+        test('safeSet method exists', function () {
+            assert.isFunction(safemap.safeSet);
+        });
+
+        test('safeRemove method exists', function () {
+            assert.isFunction(safemap.safeRemove);
         });
     });
 });
