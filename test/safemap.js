@@ -69,6 +69,10 @@ suite('require:', function () {
             assert.strictEqual(safemap.get(undefined, 'foo'), 'foo');
         });
 
+        test('get hasOwnProperty returns undefined', function () {
+            assert.isUndefined(safemap.get('hasOwnProperty'));
+        });
+
         test('set method exists', function () {
             assert.isFunction(safemap.set);
         });
@@ -97,6 +101,12 @@ suite('require:', function () {
             });
         });
 
+        test('set hasOwnProperty does not throw', function () {
+            assert.doesNotThrow(function () {
+                safemap.set('hasOwnProperty', 'foo');
+            });
+        });
+
         test('has method exists', function () {
             assert.isFunction(safemap.has);
         });
@@ -117,6 +127,10 @@ suite('require:', function () {
             });
         });
 
+        test('has hasOwnProperty returns false', function () {
+            assert.isFalse(safemap.has('hasOwnProperty'));
+        });
+
         test('remove method exists', function () {
             assert.isFunction(safemap.remove);
         });
@@ -130,6 +144,12 @@ suite('require:', function () {
         test('remove undefined does not throw', function () {
             assert.doesNotThrow(function () {
                 safemap.remove(undefined);
+            });
+        });
+
+        test('remove hasOwnProperty does not throw', function () {
+            assert.doesNotThrow(function () {
+                safemap.remove(hasOwnProperty);
             });
         });
 
@@ -153,6 +173,12 @@ suite('require:', function () {
             });
         });
 
+        test('safeGet hasOwnProperty throws', function () {
+            assert.throws(function () {
+                safemap.safeGet('hasOwnProperty');
+            });
+        });
+
         test('safeSet method exists', function () {
             assert.isFunction(safemap.safeSet);
         });
@@ -163,6 +189,12 @@ suite('require:', function () {
             });
         });
 
+        test('safeSet hasOwnProperty does not throw', function () {
+            assert.doesNotThrow(function () {
+                safemap.safeSet('hasOwnProperty', 'foo');
+            });
+        });
+
         test('safeRemove method exists', function () {
             assert.isFunction(safemap.safeRemove);
         });
@@ -170,6 +202,12 @@ suite('require:', function () {
         test('safeRemove throws', function () {
             assert.throws(function () {
                 safemap.safeRemove('foo');
+            });
+        });
+
+        test('safeRemove hasOwnProperty throws', function () {
+            assert.throws(function () {
+                safemap.safeRemove('hasOwnProperty');
             });
         });
 
@@ -446,6 +484,92 @@ suite('require:', function () {
                         assert.throws(function () {
                             safemap.safeRemove('qux');
                         });
+                    });
+                });
+            });
+        });
+
+        suite('set hasOwnProperty:', function () {
+            setup(function () {
+                safemap.set('hasOwnProperty', 'foo');
+            });
+
+            test('has returns true', function () {
+                assert.isTrue(safemap.has('hasOwnProperty'));
+            });
+
+            test('get returns value', function () {
+                assert.strictEqual(safemap.get('hasOwnProperty'), 'foo');
+            });
+
+            test('safeGet does not throw', function () {
+                assert.doesNotThrow(function () {
+                    safemap.safeGet('hasOwnProperty');
+                });
+            });
+
+            test('safeGet returns value', function () {
+                assert.strictEqual(safemap.safeGet('hasOwnProperty'), 'foo');
+            });
+
+            test('safeSet throws', function () {
+                assert.throws(function () {
+                    safemap.safeSet('hasOwnProperty', 'foo');
+                });
+            });
+
+            test('safeRemove does not throw', function () {
+                assert.doesNotThrow(function () {
+                    safemap.safeRemove('hasOwnProperty');
+                });
+            });
+
+            suite('remove:', function () {
+                setup(function () {
+                    safemap.remove('hasOwnProperty');
+                });
+
+                test('get returns undefined', function () {
+                    assert.isUndefined(safemap.get('hasOwnProperty'));
+                });
+
+                test('set does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.set('hasOwnProperty', 'foo');
+                    });
+                });
+
+                test('has does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.has('hasOwnProperty');
+                    });
+                });
+
+                test('has returns false', function () {
+                    assert.isFalse(safemap.has('hasOwnProperty'));
+                });
+
+                test('remove does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.remove('hasOwnProperty');
+                    });
+                });
+
+                test('safeGet throws', function () {
+                    assert.throws(function () {
+                        safemap.safeGet('hasOwnProperty');
+                    });
+                });
+
+                test('safeSet does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.safeSet('hasOwnProperty', 'foo');
+                    });
+                });
+
+                test('safeRemove throws', function () {
+                    assert.throws(function () {
+                        safemap.safeRemove('hasOwnProperty');
                     });
                 });
             });
