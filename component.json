@@ -2,7 +2,7 @@
     "name": "safemap",
     "version": "0.1.0",
     "author": "Phil Booth <pmbooth@gmail.com>",
-    "description": "A tiny, safe-for-all-property-names map/dictionary implementation in JavaScript.",
+    "description": "A tiny, safe-for-all-property-names map/dictionary implementation.",
     "contributors": [
         { "name": "Phil Booth", "email": "pmbooth@gmail.com" }
     ],
