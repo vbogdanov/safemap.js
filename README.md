@@ -44,14 +44,17 @@ If you're creating
 a large number of instances,
 there is a chance that
 you might be concerned about that.
+It also means that
+methods may not be sanely applied
+to other objects.
 
 The method name `remove`
 is used rather than
 the more idiomatically JavaScripty `delete`,
-which has become prevalent in
+which in prevalent in
 other map/dictionary APIs,
 such as ES5's [WeakMap]
-and many others.
+and others.
 
 ## What else could I use instead?
 
@@ -129,13 +132,13 @@ if the property is unset.
 
 #### safemap.set (key, value)
 
-Sets `value`,
+Sets `value`
 to be associated with `key`
 in the map.
 
 #### safemap.has (key)
 
-Returns a boolean,
+Returns a boolean
 indicating whether `key`
 is in the map.
 
