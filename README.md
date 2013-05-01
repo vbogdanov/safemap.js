@@ -27,7 +27,7 @@ in JavaScript.
 ## ES3-compliant?
 
 Doesn't rely
-on any features
+on features
 from more recent versions
 of ECMAScript,
 to enable straightforward usage
