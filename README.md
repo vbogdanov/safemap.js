@@ -1,9 +1,8 @@
-# check-types.js
+# safemap.js
 
 [![Build status][ci-image]][ci-status]
 
-A tiny,
-safe-for-all-property-names
+A tiny, safe, ES3-compliant
 map/dictionary implementation
 in JavaScript.
 
@@ -42,7 +41,7 @@ loading styles are supported.
 If neither system is detected,
 the library defaults to
 exporting its interface globally
-as `check`.
+as `SafeMap`.
 
 ### Calling the exported functions
 
