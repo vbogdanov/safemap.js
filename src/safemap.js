@@ -14,25 +14,27 @@
     //
     // A tiny, safe, ES3-compliant map/dictionary implementation.
     function SafeMap () {
+        var proto, map;
+
         // TODO: Support initial properties (cloned, not by-reference).
-        var self = this instanceof SafeMap ? this : new SafeMap(),
+        if (this instanceof SafeMap === false) {
+            return new SafeMap();
+        }
 
         proto = {
             isSet: false
-        },
+        };
 
         map = {};
 
-        self.has = has;
-        self.get = get;
-        self.set = set;
-        self.remove = remove;
-        self.clear = clear;
-        self.safeGet = safeGet;
-        self.safeSet = safeSet;
-        self.safeRemove = safeRemove;
-
-        return self;
+        this.has = has;
+        this.get = get;
+        this.set = set;
+        this.remove = remove;
+        this.clear = clear;
+        this.safeGet = safeGet;
+        this.safeSet = safeSet;
+        this.safeRemove = safeRemove;
 
         // Public method `has`.
         //
