@@ -15,7 +15,7 @@
     // A tiny, safe, ES3-compliant map/dictionary implementation.
     function SafeMap () {
         // TODO: Support initial properties (cloned, not by-reference).
-        var self = this instanceof SafeMap ? this : new SafeMap,
+        var self = this instanceof SafeMap ? this : new SafeMap(),
 
         proto = {
             isSet: false
