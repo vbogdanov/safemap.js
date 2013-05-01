@@ -6,6 +6,61 @@ A tiny, safe, ES3-compliant
 map/dictionary implementation
 in JavaScript.
 
+## Tiny?
+
+4.3 kb, 1 kb minified, 0.5 kb gzipped
+
+## Safe?
+
+ * Internals are private;
+ * Sane handling of `hasOwnProperty`
+   and `__proto__`;
+ * Initial values are cloned
+   rather than passed by reference;
+ * Constructor guards
+   against missing `new` operator;
+ * Throwing versions of
+   `get`, `set` and `remove`
+   methods provided for callers
+   that wish to fail fast.
+
+## ES3-compliant?
+
+Doesn't rely
+on any features
+from more recent versions
+of ECMAScript,
+to enable straightforward usage
+from legacy browser environments.
+
+## What's not to like?
+
+To enforce true privacy,
+the methods are not set
+on `SafeMap.prototype`,
+they are set on each instance
+by the constructor.
+If you're creating
+a large number of instances,
+there is a chance that
+you might be concerned about that.
+
+The method name `remove`
+is used rather than
+the more idiomatically JavaScripty `delete`,
+which has become prevalent in
+other map/dictionary APIs,
+such as ES5's [WeakMap]
+and many others.
+
+## What else could I use instead?
+
+ * Plain old JavaScript objects;
+ * [domenic/dict][dict];
+ * [dherman/dictjs][dictjs];
+ * [fabriziomoscon/node-hash][nodehash];
+ * [rauschma/strmap][strmap].
+
 ## Installation
 
 ### Via NPM
@@ -140,6 +195,11 @@ You can run them with the command `npm test` or `jake test`.
 
 [ci-image]: https://secure.travis-ci.org/philbooth/safemap.js.png?branch=master
 [ci-status]: http://travis-ci.org/#!/philbooth/safemap.js
+[weakmap]: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/WeakMap
+[dict]: https://github.com/domenic/dict
+[dictjs]: https://github.com/dherman/dictjs
+[nodehash]: https://github.com/fabriziomoscon/node-hash
+[strmap]: https://github.com/rauschma/strmap
 [node]: http://nodejs.org/
 [browserify]: http://browserify.org/
 [require]: http://requirejs.org/
