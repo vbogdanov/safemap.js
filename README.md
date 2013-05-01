@@ -51,7 +51,7 @@ to other objects.
 The method name `remove`
 is used rather than
 the more idiomatically JavaScripty `delete`,
-which in prevalent in
+which is prevalent in
 other map/dictionary APIs,
 such as ES5's [WeakMap]
 and others.
