@@ -13,12 +13,11 @@
     // Object `SafeMap`.
     //
     // A tiny, safe, ES3-compliant map/dictionary implementation.
-    function SafeMap () {
+    function SafeMap (initialValues) {
         var proto, map;
 
-        // TODO: Support initial properties (cloned, not by-reference).
         if (this instanceof SafeMap === false) {
-            return new SafeMap();
+            return new SafeMap(initialValues);
         }
 
         proto = {
@@ -26,6 +25,10 @@
         };
 
         map = {};
+
+        if (typeof initialValues === 'object' && initialValues !== null) {
+            initialiseMap(map, initialValues);
+        }
 
         this.has = has;
         this.get = get;
@@ -134,6 +137,16 @@
             }
 
             remove(key);
+        }
+    }
+
+    function initialiseMap (map, values) {
+        var key;
+
+        for (key in values) {
+            if (hasOwnProperty.call(values, key)) {
+                map[key] = values[key];
+            }
         }
     }
 

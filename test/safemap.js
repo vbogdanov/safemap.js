@@ -753,5 +753,52 @@ suite('require:', function () {
             assert.isFunction(safemap.safeRemove);
         });
     });
+
+    suite('new with initial values:', function () {
+        var safemap, initialValues;
+
+        setup(function () {
+            initialValues = {
+                foo: 'bar',
+                baz: {
+                    qux: 'foo'
+                }
+            };
+
+            safemap = new SafeMap(initialValues);
+        });
+
+        teardown(function () {
+            safemap = undefined;
+        });
+
+        test('has returns true', function () {
+            assert.isTrue(safemap.has('foo'));
+            assert.isTrue(safemap.has('baz'));
+        });
+
+        test('get returns values', function () {
+            assert.strictEqual(safemap.get('foo'), 'bar');
+            assert.isObject(safemap.get('baz'));
+            assert.strictEqual(safemap.get('baz').qux, 'foo');
+        });
+
+        suite('clear:', function () {
+            setup(function () {
+                safemap.clear();
+            });
+
+            test('has returns false', function () {
+                assert.isFalse(safemap.has('foo'));
+                assert.isFalse(safemap.has('baz'));
+            });
+
+            test('initial values are unchanged', function () {
+                assert.strictEqual(initialValues.foo, 'bar');
+                assert.isObject(initialValues.baz);
+                assert.strictEqual(initialValues.baz.qux, 'foo');
+            });
+        });
+    });
 });
 
