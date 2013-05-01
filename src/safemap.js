@@ -3,12 +3,16 @@
 (function (globals) {
     'use strict';
 
-    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+
+    messages = {
+        noValue: 'No value',
+        keyExists: 'Key exists'
+    };
 
     // Object `SafeMap`.
     //
-    // A tiny, safe-for-all-property-names
-    // map/dictionary implementation.
+    // A tiny, safe, ES3-compliant map/dictionary implementation.
     function SafeMap () {
         // TODO: Support initial properties (cloned, not by-reference).
         var self = this instanceof SafeMap ? this : new SafeMap,
@@ -96,7 +100,7 @@
         // if `key` is not in the map, an Error will be thrown.
         function safeGet (key) {
             if (hasnt(key)) {
-                throw new Error('No value for key `' + key + '`');
+                throwKeyError(messages.noValue, key);
             }
 
             return get(key);
@@ -112,7 +116,7 @@
         // Error will be thrown.
         function safeSet (key, value) {
             if (has(key)) {
-                throw new Error('Value exists for key `' + key + '`');
+                throwKeyError(messages.keyExists, key);
             }
 
             set(key, value);
@@ -124,7 +128,7 @@
         // Error will be thrown.
         function safeRemove (key) {
             if (hasnt(key)) {
-                throw new Error('No value for key `' + key + '`');
+                throwKeyError(messages.noValue, key);
             }
 
             remove(key);
@@ -133,6 +137,10 @@
 
     function isProto (key) {
         return key === '__proto__';
+    }
+
+    function throwKeyError (message, key) {
+        throw new Error(message + ' for key `' + key + '`');
     }
 
     if (typeof define === 'function' && define.amd) {
