@@ -43,30 +43,79 @@ the library defaults to
 exporting its interface globally
 as `SafeMap`.
 
-### Calling the exported functions
+### Instantiation
 
-A number of different functions are exported:
+```
+var safemap = new SafeMap();
+```
+
+```
+var safemap = new SafeMap({
+	// Initial values
+	foo: 'bar'
+	baz: 'qux'
+});
+```
+
+```
+var safemap = Object.create(SafeMap);
+```
+
+### Calling the methods
+
+A number of methods are exported:
 
 #### safemap.get (key [, defaultValue])
 
+Returns the value
+associated with `key` in the map,
+or `defaultValue`
+if the property is unset.
 
 #### safemap.set (key, value)
 
+Sets `value`,
+to be associated with `key`
+in the map.
 
 #### safemap.has (key)
 
+Returns a boolean,
+indicating whether `key`
+is in the map.
 
-#### safemap.delete (key)
+#### safemap.remove (key)
 
+Removes `key`
+from the map.
 
 #### safemap.clear ()
 
+Removes all keys
+from the map.
 
 #### safemap.safeGet (key)
 
+Throwing version
+of `get`.
+No default value
+may be specified and,
+if `key` is not in the map,
+an error will be thrown.
 
 #### safemap.safeSet (key, value)
 
+Throwing version
+of `set`.
+If `key` is already in the map,
+an error will be thrown.
+
+#### safemap.safeRemove (key)
+
+Throwing version
+of `remove`.
+If `key` is not in the map,
+an error will be thrown.
 
 ## Development
 
