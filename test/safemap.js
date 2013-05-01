@@ -535,6 +535,18 @@ suite('require:', function () {
                     });
                 });
             });
+
+            suite('new:', function () {
+                var secondMap;
+
+                setup(function () {
+                    secondMap = new SafeMap;
+                });
+
+                test('has returns false when called on second map', function () {
+                    assert.isFalse(safemap.has.call(secondMap, 'foo'));
+                });
+            });
         });
 
         suite('set hasOwnProperty:', function () {
