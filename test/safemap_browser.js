@@ -3,7 +3,7 @@
 
     var assert = chai.assert;
 
-    suite('no setup:', function () {
+    suite('SafeMap:', function () {
         test('instantiation with new does not throw', function () {
             assert.doesNotThrow(function () {
                 new SafeMap;
