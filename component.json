@@ -1,6 +1,6 @@
 {
     "name": "safemap",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": "Phil Booth <pmbooth@gmail.com>",
     "description": "A tiny, safe, ES3-compliant map/dictionary implementation.",
     "contributors": [
