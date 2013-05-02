@@ -7,7 +7,7 @@ var exec = require('child_process').exec,
 
 commands = {
     minify: './node_modules/.bin/uglifyjs ./src/safemap.js --compress --mangle --output ./src/safemap.min.js',
-    test: './node_modules/.bin/mocha --ui tdd --reporter spec --colors --slow 50 ./test',
+    test: './node_modules/.bin/mocha --ui tdd --reporter spec --colors --slow 50 ./test/safemap.js',
     lint: './node_modules/.bin/jshint ./src/safemap.js --config config/jshint.json',
     prepare: 'npm install'
 };
