@@ -162,7 +162,7 @@
         define(function () {
             return SafeMap;
         });
-    } else if (typeof module === 'object' && module !== null) {
+    } else if (typeof module !== 'undefined' && module !== null) {
         module.exports = SafeMap;
     } else {
         globals.SafeMap = SafeMap;
