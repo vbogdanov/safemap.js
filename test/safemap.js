@@ -259,6 +259,33 @@ suite('require:', function () {
             });
         });
 
+        test('size method exists', function () {
+            assert.isFunction(safemap.size);
+        });
+
+        test('size returns value 0', function () {
+            assert.strictEqual(safemap.size(), 0);
+        });
+
+        test('forEach method exists', function () {
+            assert.isFunction(safemap.forEach);
+        });
+
+        test('forEach with invalid arguments throws', function () {
+            assert.throws(function () {
+                safemap.forEach();
+            });
+            assert.throws(function () {
+                safemap.forEach("not a function");
+            });
+        });
+
+        test('forEach does not throw if function is passed', function () {
+            assert.doesNotThrow(function () {
+                safemap.forEach(function (key, value) {});
+            });
+        });
+
         suite('set:', function () {
             setup(function () {
                 safemap.set('foo', 'bar');
@@ -326,6 +353,23 @@ suite('require:', function () {
                 });
             });
 
+            test('size returns 1', function () {
+                assert.strictEqual(safemap.size(), 1);
+            });
+
+            test('forEach invokes its argument once with key foo and value bar', function () {
+                var callcount = 0;
+                function callback (key, value) {
+                    assert.strictEqual(key, 'foo');
+                    assert.strictEqual(value, 'bar');
+                    callcount += 1;
+                }
+
+                safemap.forEach(callback);
+
+                assert.strictEqual(callcount, 1);
+            });
+
             suite('set:', function () {
                 setup(function () {
                     safemap.set('foo', 'baz');
@@ -341,6 +385,23 @@ suite('require:', function () {
 
                 test('safeGet returns value', function () {
                     assert.strictEqual(safemap.safeGet('foo'), 'baz');
+                });
+
+                test('size returns 1', function () {
+                    assert.strictEqual(safemap.size(), 1);
+                });
+
+                test('forEach invokes its argument once with key foo and value baz', function () {
+                    var callcount = 0;
+                    function callback (key, value) {
+                        assert.strictEqual(key, 'foo');
+                        assert.strictEqual(value, 'baz');
+                        callcount += 1;
+                    }
+
+                    safemap.forEach(callback);
+
+                    assert.strictEqual(callcount, 1);
                 });
 
                 suite('remove:', function () {
@@ -372,6 +433,21 @@ suite('require:', function () {
                         assert.throws(function () {
                             safemap.safeRemove('foo');
                         });
+                    });
+
+                    test('size returns 0', function () {
+                        assert.strictEqual(safemap.size(), 0);
+                    });
+
+                    test('forEach does not invoke the callback', function () {
+                        var callcount = 0;
+                        function callback (key, value) {
+                            callcount += 1;
+                        }
+
+                        safemap.forEach(callback);
+
+                        assert.strictEqual(callcount, 0);
                     });
                 });
 
@@ -405,6 +481,10 @@ suite('require:', function () {
                             safemap.safeRemove('foo');
                         });
                     });
+
+                    test('size returns 0', function () {
+                        assert.strictEqual(safemap.size(), 0);
+                    });
                 });
 
                 suite('clear:', function () {
@@ -436,6 +516,10 @@ suite('require:', function () {
                         assert.throws(function () {
                             safemap.safeRemove('foo');
                         });
+                    });
+
+                    test('size returns 0', function () {
+                        assert.strictEqual(safemap.size(), 0);
                     });
                 });
             });
@@ -477,6 +561,10 @@ suite('require:', function () {
                     });
                 });
 
+                test('size returns value 2', function () {
+                    assert.strictEqual(safemap.size(), 2);
+                });
+                
                 suite('clear:', function () {
                     setup(function () {
                         safemap.clear();
@@ -533,6 +621,10 @@ suite('require:', function () {
                             safemap.safeRemove('qux');
                         });
                     });
+
+                    test('size returns value 0', function () {
+                        assert.strictEqual(safemap.size(), 0);
+                    });
                 });
             });
         });
@@ -570,6 +662,10 @@ suite('require:', function () {
                 assert.doesNotThrow(function () {
                     safemap.safeRemove('hasOwnProperty');
                 });
+            });
+
+            test('size returns value 1', function () {
+                assert.strictEqual(safemap.size(), 1);
             });
 
             suite('remove:', function () {
@@ -620,6 +716,10 @@ suite('require:', function () {
                         safemap.safeRemove('hasOwnProperty');
                     });
                 });
+
+                test('size returns value 0', function () {
+                    assert.strictEqual(safemap.size(), 0);
+                });
             });
         });
 
@@ -657,6 +757,24 @@ suite('require:', function () {
                     safemap.safeRemove('__proto__');
                 });
             });
+
+            test('size returns value 1', function () {
+                assert.strictEqual(safemap.size(), 1);
+            });
+
+            test('forEach invokes its argument once with key foo and value bar', function () {
+                var callcount = 0;
+                function callback (key, value) {
+                    assert.strictEqual(key, '__proto__');
+                    assert.strictEqual(value, 'foo');
+                    callcount += 1;
+                }
+
+                safemap.forEach(callback);
+
+                assert.strictEqual(callcount, 1);
+            });
+
 
             suite('remove:', function () {
                 setup(function () {
@@ -706,7 +824,65 @@ suite('require:', function () {
                         safemap.safeRemove('__proto__');
                     });
                 });
+
+                test('size returns value 0', function () {
+                    assert.strictEqual(safemap.size(), 0);
+                });
             });
+
+            suite('clear:', function () {
+                setup(function () {
+                    safemap.clear();
+                });
+
+                test('get returns undefined', function () {
+                    assert.isUndefined(safemap.get('__proto__'));
+                });
+
+                test('set does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.set('__proto__', 'foo');
+                    });
+                });
+
+                test('has does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.has('__proto__');
+                    });
+                });
+
+                test('has returns false', function () {
+                    assert.isFalse(safemap.has('__proto__'));
+                });
+
+                test('remove does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.remove('__proto__');
+                    });
+                });
+
+                test('safeGet throws', function () {
+                    assert.throws(function () {
+                        safemap.safeGet('__proto__');
+                    });
+                });
+
+                test('safeSet does not throw', function () {
+                    assert.doesNotThrow(function () {
+                        safemap.safeSet('__proto__', 'foo');
+                    });
+                });
+
+                test('safeRemove throws', function () {
+                    assert.throws(function () {
+                        safemap.safeRemove('__proto__');
+                    });
+                });
+
+                test('size returns value 0', function () {
+                    assert.strictEqual(safemap.size(), 0);
+                });
+            });  
         });
     });
 
