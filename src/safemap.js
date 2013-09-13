@@ -8,11 +8,12 @@
     messages = {
         noValue: 'No value',
         keyExists: 'Key exists'
-    };
+    },
 
-    var keys = Object.keys || function (obj) {
-        var count = 0;
-        for (var key in obj) {
+    keys = Object.keys || function (obj) {
+        var count = 0,
+        key;
+        for (key in obj) {
             if (hasOwnProperty.call(obj, key)) {
                 count += 1;
             }
