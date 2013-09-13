@@ -42,18 +42,18 @@
             initialiseMap(map, initialValues);
         }
 
+        this.size = size;
         this.has = has;
         this.get = get;
         this.set = set;
         this.remove = remove;
         this.clear = clear;
+        this.forEach = forEach;
         this.safeGet = safeGet;
         this.safeSet = safeSet;
         this.safeRemove = safeRemove;
-        this.size = size;
-        this.forEach = forEach;
 
-        // Public method  size
+        // Public method size
         //
         // Returns the number of items in the map.
         function size () {
@@ -121,6 +121,26 @@
             remove('__proto__');
         }
 
+        // Public method forEach
+        //
+        // Iterates over items in the map, calling `callback(key, value)`
+        // for each item.
+        function forEach (callback) {
+            if (typeof callback !== 'function') {
+                throw new Error('Invalid Argument. function(key, value) is required, actual:' + callback);
+            }
+
+            if (proto.isSet) {
+                callback('__proto__', proto.value);
+            }
+
+            for (var key in map) {
+                if (hasOwnProperty.call(map, key)) {
+                    callback(key, map[key]);
+                }
+            }
+        }
+
         // Public method `safeGet`.
         //
         // Throwing version of `get`. No default value can be specified and,
@@ -159,26 +179,6 @@
             }
 
             remove(key);
-        }
-
-        //public method  forEach
-        //
-        // Iterates over the entries in the map
-        // callback is passed 2 arguments - key and value - for each entry.
-        // entry wit key '__proto__' is passed first if present
-        // throws exception if passed an object that is not a function
-        function forEach (callback) {
-            if (typeof callback !== 'function') {
-                throw new Error('Invalid Argument. function(key, value) is required, actual:' + callback);
-            }
-            if (proto.isSet) {
-                callback('__proto__', proto.value);
-            }
-            for (var key in map) {
-                if (hasOwnProperty.call(map, key)) {
-                    callback(key, map[key]);
-                }
-            }
         }
     }
 
