@@ -123,6 +123,12 @@ var safemap = Object.create(SafeMap);
 
 A number of methods are exported:
 
+#### safemap.size ()
+
+Returns the number
+of items
+in the map.
+
 #### safemap.get (key [, defaultValue])
 
 Returns the value
@@ -151,6 +157,15 @@ from the map.
 
 Removes all keys
 from the map.
+
+#### safemap.forEach (callback)
+
+Iterate over items in the map,
+calling `callback`
+for each item.
+`callback` will receive
+two arguments,
+`key` and `value`.
 
 #### safemap.safeGet (key)
 
