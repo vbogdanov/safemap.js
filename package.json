@@ -1,10 +1,11 @@
 {
     "name": "safemap",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "author": "Phil Booth <pmbooth@gmail.com>",
     "description": "A tiny, safe, ES3-compliant map/dictionary implementation.",
     "contributors": [
-        { "name": "Phil Booth", "email": "pmbooth@gmail.com" }
+        { "name": "Phil Booth", "email": "pmbooth@gmail.com" },
+        { "name": "Valeri Bogdanov" }
     ],
     "main": "./src/safemap.js",
     "repository": {
