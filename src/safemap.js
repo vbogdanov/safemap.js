@@ -10,16 +10,18 @@
         keyExists: 'Key exists'
     },
 
-    keys = Object.keys || function (obj) {
-        var count = 0,
-        key;
-        for (key in obj) {
-            if (hasOwnProperty.call(obj, key)) {
+    keys = Object.keys || function (object) {
+        var count = 0, key;
+
+        for (key in object) {
+            if (hasOwnProperty.call(object, key)) {
                 count += 1;
             }
         }
+
         return count;
     };
+
     // Object `SafeMap`.
     //
     // A tiny, safe, ES3-compliant map/dictionary implementation.
@@ -50,6 +52,13 @@
         this.safeRemove = safeRemove;
         this.size = size;
         this.forEach = forEach;
+
+        // Public method  size
+        //
+        // Returns the number of items in the map.
+        function size () {
+            return keys(map).length + (proto.isSet ? 1 : 0);
+        }
 
         // Public method `has`.
         //
@@ -109,8 +118,7 @@
         // Removes all keys from the map.
         function clear () {
             map = {};
-            proto.isSet = false;
-            delete proto.value;
+            remove('__proto__');
         }
 
         // Public method `safeGet`.
@@ -171,13 +179,6 @@
                     callback(key, map[key]);
                 }
             }
-        }
-
-        //public method  size
-        //
-        // displays the number of entries in the map.
-        function size () {
-            return keys(map).length + (proto.isSet? 1: 0);
         }
     }
 
