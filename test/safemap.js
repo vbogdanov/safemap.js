@@ -884,6 +884,113 @@ suite('require:', function () {
                 });
             });  
         });
+
+        suite('set null:', function () {
+                setup(function () {
+                    safemap.set(null, 'baz');
+                });
+
+                test('has returns true', function () {
+                    assert.isTrue(safemap.has(null));
+                });
+
+                test('get returns value', function () {
+                    assert.strictEqual(safemap.get(null, 'bar'), 'baz');
+                });
+
+                test('safeGet returns value', function () {
+                    assert.strictEqual(safemap.safeGet(null), 'baz');
+                });
+
+                test('size returns 1', function () {
+                    assert.strictEqual(safemap.size(), 1);
+                });
+
+                test('forEach invokes its argument once with key foo and value baz', function () {
+                    var callcount = 0;
+                    function callback (key, value) {
+                        assert.strictEqual(key, null);
+                        assert.strictEqual(value, 'baz');
+                        callcount += 1;
+                    }
+
+                    safemap.forEach(callback);
+
+                    assert.strictEqual(callcount, 1);
+                });
+            });
+
+            suite('set undefined:', function () {
+                var UNDEFINED;
+                setup(function () {
+                    
+                    safemap.set(UNDEFINED, 'baz');
+                });
+
+                test('has returns true', function () {
+                    assert.isTrue(safemap.has(UNDEFINED));
+                });
+
+                test('get returns value', function () {
+                    assert.strictEqual(safemap.get(UNDEFINED, 'bar'), 'baz');
+                });
+
+                test('safeGet returns value', function () {
+                    assert.strictEqual(safemap.safeGet(UNDEFINED), 'baz');
+                });
+
+                test('size returns 1', function () {
+                    assert.strictEqual(safemap.size(), 1);
+                });
+
+                test('forEach invokes its argument once with key foo and value baz', function () {
+                    var callcount = 0;
+                    function callback (key, value) {
+                        assert.strictEqual(key, UNDEFINED);
+                        assert.strictEqual(value, 'baz');
+                        callcount += 1;
+                    }
+
+                    safemap.forEach(callback);
+
+                    assert.strictEqual(callcount, 1);
+                });
+            });
+
+            suite('set empty string:', function () {
+                setup(function () {
+                    safemap.set('', 'baz');
+                });
+
+                test('has returns true', function () {
+                    assert.isTrue(safemap.has(''));
+                });
+
+                test('get returns value', function () {
+                    assert.strictEqual(safemap.get('', 'bar'), 'baz');
+                });
+
+                test('safeGet returns value', function () {
+                    assert.strictEqual(safemap.safeGet(''), 'baz');
+                });
+
+                test('size returns 1', function () {
+                    assert.strictEqual(safemap.size(), 1);
+                });
+
+                test('forEach invokes its argument once with key foo and value baz', function () {
+                    var callcount = 0;
+                    function callback (key, value) {
+                        assert.strictEqual(key, '');
+                        assert.strictEqual(value, 'baz');
+                        callcount += 1;
+                    }
+
+                    safemap.forEach(callback);
+
+                    assert.strictEqual(callcount, 1);
+                });
+            });
     });
 
     suite('no new:', function () {
