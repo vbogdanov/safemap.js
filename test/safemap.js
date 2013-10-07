@@ -69,14 +69,16 @@ suite('require:', function () {
             assert.strictEqual(safemap.get('foo', 'bar'), 'bar');
         });
 
-        test('get undefined does not throw', function () {
-            assert.doesNotThrow(function () {
+        test('get undefined throws', function () {
+            assert.throws(function () {
                 safemap.get(undefined);
             });
         });
 
-        test('get undefined returns default value', function () {
-            assert.strictEqual(safemap.get(undefined, 'foo'), 'foo');
+        test('get undefined throws regardless of default value', function () {
+            assert.throws(function () {
+                safemap.get(undefined, 'foo')
+            });
         });
 
         test('get hasOwnProperty returns undefined', function () {
@@ -97,21 +99,27 @@ suite('require:', function () {
             });
         });
 
-        test('set undefined does not throw', function () {
+        test('set undefined value does not throw', function () {
             assert.doesNotThrow(function () {
                 safemap.set('foo', undefined);
             });
         });
 
-        test('set object key does not throw', function () {
-            assert.doesNotThrow(function () {
+        test('set undefined key throws', function () {
+            assert.throws(function () {
+                safemap.set(undefined, 'foo');
+            });
+        });
+
+        test('set object key throws', function () {
+            assert.throws(function () {
                 safemap.set({}, 'foo');
             });
         });
 
-        test('set undefined key does not throw', function () {
-            assert.doesNotThrow(function () {
-                safemap.set(undefined, 'foo');
+        test('set null key throws', function () {
+            assert.throws(function () {
+                safemap.set(null, 'foo');
             });
         });
 
@@ -141,8 +149,8 @@ suite('require:', function () {
             assert.isFalse(safemap.has('foo'));
         });
 
-        test('has undefined does not throw', function () {
-            assert.doesNotThrow(function () {
+        test('has undefined throws', function () {
+            assert.throws(function () {
                 safemap.has(undefined);
             });
         });
@@ -165,21 +173,21 @@ suite('require:', function () {
             });
         });
 
-        test('remove undefined does not throw', function () {
-            assert.doesNotThrow(function () {
+        test('remove undefined throws', function () {
+            assert.throws(function () {
                 safemap.remove(undefined);
             });
         });
 
         test('remove hasOwnProperty does not throw', function () {
             assert.doesNotThrow(function () {
-                safemap.remove(hasOwnProperty);
+                safemap.remove('hasOwnProperty');
             });
         });
 
         test('remove __proto__ does not throw', function () {
             assert.doesNotThrow(function () {
-                safemap.remove(__proto__);
+                safemap.remove('__proto__');
             });
         });
 
@@ -885,112 +893,40 @@ suite('require:', function () {
             });  
         });
 
-        suite('set null:', function () {
-                setup(function () {
-                    safemap.set(null, 'baz');
-                });
-
-                test('has returns true', function () {
-                    assert.isTrue(safemap.has(null));
-                });
-
-                test('get returns value', function () {
-                    assert.strictEqual(safemap.get(null, 'bar'), 'baz');
-                });
-
-                test('safeGet returns value', function () {
-                    assert.strictEqual(safemap.safeGet(null), 'baz');
-                });
-
-                test('size returns 1', function () {
-                    assert.strictEqual(safemap.size(), 1);
-                });
-
-                test('forEach invokes its argument once with key foo and value baz', function () {
-                    var callcount = 0;
-                    function callback (key, value) {
-                        assert.strictEqual(key, null);
-                        assert.strictEqual(value, 'baz');
-                        callcount += 1;
-                    }
-
-                    safemap.forEach(callback);
-
-                    assert.strictEqual(callcount, 1);
-                });
+        suite('set empty string:', function () {
+            setup(function () {
+                safemap.set('', 'baz');
             });
 
-            suite('set undefined:', function () {
-                var UNDEFINED;
-                setup(function () {
-                    
-                    safemap.set(UNDEFINED, 'baz');
-                });
-
-                test('has returns true', function () {
-                    assert.isTrue(safemap.has(UNDEFINED));
-                });
-
-                test('get returns value', function () {
-                    assert.strictEqual(safemap.get(UNDEFINED, 'bar'), 'baz');
-                });
-
-                test('safeGet returns value', function () {
-                    assert.strictEqual(safemap.safeGet(UNDEFINED), 'baz');
-                });
-
-                test('size returns 1', function () {
-                    assert.strictEqual(safemap.size(), 1);
-                });
-
-                test('forEach invokes its argument once with key foo and value baz', function () {
-                    var callcount = 0;
-                    function callback (key, value) {
-                        assert.strictEqual(key, UNDEFINED);
-                        assert.strictEqual(value, 'baz');
-                        callcount += 1;
-                    }
-
-                    safemap.forEach(callback);
-
-                    assert.strictEqual(callcount, 1);
-                });
+            test('has returns true', function () {
+                assert.isTrue(safemap.has(''));
             });
 
-            suite('set empty string:', function () {
-                setup(function () {
-                    safemap.set('', 'baz');
-                });
-
-                test('has returns true', function () {
-                    assert.isTrue(safemap.has(''));
-                });
-
-                test('get returns value', function () {
-                    assert.strictEqual(safemap.get('', 'bar'), 'baz');
-                });
-
-                test('safeGet returns value', function () {
-                    assert.strictEqual(safemap.safeGet(''), 'baz');
-                });
-
-                test('size returns 1', function () {
-                    assert.strictEqual(safemap.size(), 1);
-                });
-
-                test('forEach invokes its argument once with key foo and value baz', function () {
-                    var callcount = 0;
-                    function callback (key, value) {
-                        assert.strictEqual(key, '');
-                        assert.strictEqual(value, 'baz');
-                        callcount += 1;
-                    }
-
-                    safemap.forEach(callback);
-
-                    assert.strictEqual(callcount, 1);
-                });
+            test('get returns value', function () {
+                assert.strictEqual(safemap.get('', 'bar'), 'baz');
             });
+
+            test('safeGet returns value', function () {
+                assert.strictEqual(safemap.safeGet(''), 'baz');
+            });
+
+            test('size returns 1', function () {
+                assert.strictEqual(safemap.size(), 1);
+            });
+
+            test('forEach invokes its argument once with key foo and value baz', function () {
+                var callcount = 0;
+                function callback (key, value) {
+                    assert.strictEqual(key, '');
+                    assert.strictEqual(value, 'baz');
+                    callcount += 1;
+                }
+
+                safemap.forEach(callback);
+
+                assert.strictEqual(callcount, 1);
+            });
+        });
     });
 
     suite('no new:', function () {

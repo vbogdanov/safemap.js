@@ -7,7 +7,8 @@
 
     messages = {
         noValue: 'No value',
-        keyExists: 'Key exists'
+        keyExists: 'Key exists',
+        mustBeString: 'Key type must be string'
     },
 
     keys = Object.keys || function (object) {
@@ -64,6 +65,7 @@
         //
         // Returns a boolean indicating whether `key` is in the map.
         function has (key) {
+            checkKeyIsString(key);
             if (isProto(key)) {
                 return proto.isSet;
             }
@@ -77,6 +79,7 @@
         // If `key` is not in the map, returns `defaultValue` (i.e. returns
         // `undefined` if no defaultValue argument is provided by the caller).
         function get (key, defaultValue) {
+            checkKeyIsString(key);
             if (isProto(key)) {
                 return proto.value;
             }
@@ -93,6 +96,7 @@
         // Sets a value to be associated with `key`, over-writing any former
         // value that may have been set for `key`.
         function set (key, value) {
+            checkKeyIsString(key);
             if (isProto(key)) {
                 proto.isSet = true;
                 proto.value = value;
@@ -105,6 +109,7 @@
         //
         // Removes `key` from the map.
         function remove (key) {
+            checkKeyIsString(key);
             if (isProto(key)) {
                 proto.isSet = false;
                 delete proto.value;
@@ -146,6 +151,7 @@
         // Throwing version of `get`. No default value can be specified and,
         // if `key` is not in the map, an Error will be thrown.
         function safeGet (key) {
+            checkKeyIsString(key);
             if (hasnt(key)) {
                 throwKeyError(messages.noValue, key);
             }
@@ -154,6 +160,7 @@
         }
 
         function hasnt (key) {
+            checkKeyIsString(key);
             return has(key) === false;
         }
 
@@ -162,6 +169,7 @@
         // Throwing version of `set`. If `key` is already in the map, an
         // Error will be thrown.
         function safeSet (key, value) {
+            checkKeyIsString(key);
             if (has(key)) {
                 throwKeyError(messages.keyExists, key);
             }
@@ -174,6 +182,7 @@
         // Throwing version of `remove`. If `key` is not in the map, an
         // Error will be thrown.
         function safeRemove (key) {
+            checkKeyIsString(key);
             if (hasnt(key)) {
                 throwKeyError(messages.noValue, key);
             }
@@ -198,6 +207,12 @@
 
     function throwKeyError (message, key) {
         throw new Error(message + ' for key `' + key + '`');
+    }
+
+    function checkKeyIsString(arg1) {
+        if (typeof arg1 !== 'string') {
+            throwKeyError(messages.mustBeString, arg1);
+        }
     }
 
     if (typeof define === 'function' && define.amd) {

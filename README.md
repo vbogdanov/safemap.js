@@ -15,6 +15,8 @@ in JavaScript.
  * Internals are private;
  * Sane handling of `hasOwnProperty`
    and `__proto__`;
+ * Empty string is valid key;
+ * Exception thrown on non-string keys (including null and undefined);
  * Initial values are cloned
    rather than passed by reference;
  * Constructor guards
@@ -63,6 +65,15 @@ and others.
  * [dherman/dictjs][dictjs];
  * [fabriziomoscon/node-hash][nodehash];
  * [rauschma/strmap][strmap].
+
+## What if I need any-type-of-key map?
+
+ * ES 6 Map;
+ * [BorisKozo/jsHash (aka npm>hashes)][hashes];
+ * [doug-martin/ht][ht];
+ * [georgerogers42/hashtbl2][hashtbl2];
+ * [WebReflection/es6-collections][es6collections].
+
 
 ## Installation
 
@@ -229,4 +240,8 @@ open `test/safemap.html`.
 [mocha]: http://visionmedia.github.com/mocha
 [chai]: http://chaijs.com/
 [uglifyjs]: https://github.com/mishoo/UglifyJS
+[hashes]: https://github.com/BorisKozo/jsHash
+[ht]: https://github.com/doug-martin/ht
+[hashtbl2]: https://github.com/georgerogers42/hashtbl2
+[es6collections]: https://github.com/WebReflection/es6-collections
 
